@@ -1,24 +1,34 @@
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
+        
+        Factura factura = new Factura(851, "2024/06/24", 500.0);
+        Cliente cliente = new Cliente("Rafael Montoya",  "Calle 16 # 51B - 22",  "rafael@gmail.com");
 
-        EnvioEstandar envioEstandar = new EnvioEstandar();
-        EnvioExpress envioExpress = new EnvioExpress();
+        GuardarFacturaBD facturaRepo = new GuardarFacturaBD();
+        facturaRepo.guardarFactura(factura);
+        System.out.println("");
 
-        double peso = 30.0;
-        double distancia = 220.0;
+        GuardarClienteBD clienteRepo = new GuardarClienteBD();
+        clienteRepo.guardarCliente(cliente);
+        System.out.println("");
 
-        System.out.println("Costo de Envío Estándar para peso: "+peso+"kg y distancia: "+distancia+"km: " + envioEstandar.calcularCosto(peso, distancia));
-        System.out.println("Costo de Envío Express para peso: "+peso+"kg y distancia: "+distancia+"km: " + envioExpress.calcularCosto(peso, distancia));
+        EnviarEmailFactura emailFactura = new EnviarEmailFactura();
+        emailFactura.enviarEmailFactura(factura, cliente);
+        System.out.println("");
+
+        GenerarReporteFactura reporteFactura = new GenerarReporteFactura();
+        reporteFactura.generarReporteFacturas(List.of(factura));
+        System.out.println("");
+
+        FacturaDian dianFactura = new FacturaDian();
+        dianFactura.enviarFacturaDian(factura);
 
         System.out.println("");
         System.out.println("");
-        System.out.print("¿Qué sucede si queremos agregar un nuevo tipo de envío, como envío internacional?");
+        System.out.print("¿Por qué la clase Factura tiene más de una responsabilidad?");
         System.out.println("");
-        System.out.print("Lo unico que tenemos que hacer es crear otra clase llamada EnvioInternacional y sobrescribir el metodo que ya tenemos en la interfaz Envio a nuestra conveniencia.");
-        System.out.println("");
-        System.out.println("");
-        System.out.print("¿Qué parte del código necesita modificarse?");
-        System.out.println("");
-        System.out.print("Casi un 100% del codigo original se tuvo que modificar debido a que OCP nos indica de crear una unica funcion en una interfaz aparte y despues sobrescribirla a nuestra conveniencia despues. Tuvimos que crear una interfaz Envio donde se crea la funcion original y de ahi creamos las otras clases necesarias para cada tipo de envio donde cada una implementa la funcion de la interfaz Envio.");
+        System.out.print("Se esta violando la principal funcion del SRP debido a que en una sola clase o en pocas clases tenemos muchas funciones que debemos serparar. Solamente creamos mas clases con su respectiva funcion y le enviamos los datos necesarios. Y la clase factura tiene mas de una responsabilidad debido a que las otras funciones estan relacionadas con la factura por datos similares que se trabaja en conjunto, sin embargo esta mal el codigo.");
     }
 }
