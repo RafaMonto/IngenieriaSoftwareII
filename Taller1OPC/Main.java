@@ -3,12 +3,14 @@ public class Main {
 
         EnvioEstandar envioEstandar = new EnvioEstandar();
         EnvioExpress envioExpress = new EnvioExpress();
+        EnvioInternacional envioInternacional = new EnvioInternacional();
 
         double peso = 30.0;
         double distancia = 220.0;
 
         System.out.println("Costo de Envío Estándar para peso: "+peso+"kg y distancia: "+distancia+"km: " + envioEstandar.calcularCosto(peso, distancia));
         System.out.println("Costo de Envío Express para peso: "+peso+"kg y distancia: "+distancia+"km: " + envioExpress.calcularCosto(peso, distancia));
+        System.out.println("Costo de Envío Internacional para peso: "+peso+"kg y distancia: "+distancia+"km: " + envioInternacional.calcularCosto(peso, distancia));
 
         System.out.println("");
         System.out.println("");
